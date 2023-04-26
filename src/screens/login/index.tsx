@@ -24,7 +24,7 @@ const LoginSreen = (props: Props) => {
     password: Yup.string().required("Informe a senha"),
   });
 
-  const { handleChange, handleSubmit, handleBlur, values, errors, touched, isSubmitting } = useFormik({
+  const { handleChange, handleSubmit, handleBlur, errors, touched, isSubmitting } = useFormik({
     validationSchema: loginSchema,
     initialValues: { ...initialValues },
     onSubmit: (values) => alert(`Email: ${values.email}, Password: ${values.password}`),
