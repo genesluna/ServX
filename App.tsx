@@ -1,11 +1,5 @@
-import { StatusBar } from "expo-status-bar";
-import { Text, View } from "react-native";
+import LoginSreen from "./src/screens/login";
 
 export default function App() {
-  return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text>Open up App.tsx</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  return <LoginSreen />;
 }
