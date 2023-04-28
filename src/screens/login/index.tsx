@@ -14,7 +14,7 @@ type FormValues = {
   password: string;
 };
 
-const LoginSreen = (props: Props) => {
+const Login = (props: Props) => {
   const password = useRef<any>(null);
 
   const initialValues: FormValues = { email: "", password: "" };
@@ -72,4 +72,4 @@ const LoginSreen = (props: Props) => {
   );
 };
 
-export default LoginSreen;
+export default Login;
