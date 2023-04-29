@@ -1,5 +1,5 @@
-import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
+import { ActivityIndicator, GestureResponderEvent, Text, TouchableOpacity } from "react-native";
 
 type Props = {
   label: string;
@@ -9,7 +9,7 @@ type Props = {
   className?: string;
   isLoading?: boolean;
   loadingColor?: string;
-  onPress?(): void;
+  onPress?(event: GestureResponderEvent): void | undefined;
   [x: string]: any;
 };
 
