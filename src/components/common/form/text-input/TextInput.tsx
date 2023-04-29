@@ -16,7 +16,7 @@ const TextInput = forwardRef(({ icon, touched, error, ...props }: Props, ref: an
   return (
     <View className={`flex items-start mb-2 ${props.className}`}>
       <View className={`flex-row items-center h-12 p-2 border rounded-lg bg-white ${validationBorderColor}`}>
-        <View className="p-2">
+        <View className="px-2">
           <Icon name={icon} size={16} color={validationIconColor} />
         </View>
         <View className="flex-1">

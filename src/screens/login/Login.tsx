@@ -1,21 +1,23 @@
 import React, { useRef } from "react";
-import { Image, View } from "react-native";
+import { Image, ToastAndroid, View } from "react-native";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import Logo from "../../../assets/servx_logo_md.png";
 import TextInput from "../../components/common/form/text-input";
 import Button from "../../components/common/actions/button";
-
-type Props = {};
+import { useAuth } from "../../context/AuthContext";
+import { useNavigation } from "@react-navigation/native";
 
 type FormValues = {
   email: string;
   password: string;
 };
 
-const Login = (props: Props) => {
+const Login = () => {
   const password = useRef<any>(null);
+
+  const navigation = useNavigation();
 
   const initialValues: FormValues = { email: "", password: "" };
 
@@ -26,9 +28,25 @@ const Login = (props: Props) => {
 
   const { handleChange, handleSubmit, handleBlur, errors, touched, isSubmitting } = useFormik({
     validationSchema: loginSchema,
-    initialValues: { ...initialValues },
-    onSubmit: (values) => alert(`Email: ${values.email}, Password: ${values.password}`),
+    initialValues: initialValues,
+    onSubmit: async (values) => {
+      await handleLogin(values);
+    },
   });
+
+  const { login } = useAuth();
+
+  const handleLogin = async ({ email, password }: FormValues) => {
+    try {
+      await login(email, password);
+    } catch (error) {
+      ToastAndroid.showWithGravity("Email ou senha incorretos", ToastAndroid.LONG, ToastAndroid.TOP);
+      console.log(error);
+    }
+    return;
+  };
+
+  const openRegisterScreen = () => navigation.navigate("register");
 
   return (
     <View className="items-center justify-center flex-1 px-10 bg-slate-100">
@@ -66,8 +84,20 @@ const Login = (props: Props) => {
         onSubmitEditing={() => handleSubmit()}
       />
 
-      <Button className="mt-6" label="login" onPress={() => handleSubmit()} disabled={isSubmitting} />
-      <Button className="mt-3" label="registrar" color="bg-slate-300" labelColor="text-black" />
+      <Button
+        className="mt-6"
+        label="login"
+        onPress={() => handleSubmit()}
+        disabled={isSubmitting}
+        isLoading={isSubmitting}
+      />
+      <Button
+        className="mt-3 mb-10"
+        label="registrar"
+        color="bg-slate-300"
+        labelColor="text-black"
+        onPress={openRegisterScreen}
+      />
     </View>
   );
 };
