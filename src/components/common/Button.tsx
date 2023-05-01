@@ -1,21 +1,21 @@
 import React from "react";
 import { ActivityIndicator, Text, TouchableOpacity, TouchableOpacityProps } from "react-native";
-import colors from "tailwindcss/colors";
+import colors from "../../../colors";
 
 type Props = TouchableOpacityProps & {
   label: string;
   bgColor?: string;
   labelColor?: string;
-  isLoading?: boolean;
   loadingColor?: string;
+  isLoading?: boolean;
 };
 
 const Button = ({
   label,
-  bgColor = "bg-orange-400",
-  labelColor = "text-white",
+  bgColor = "bg-primary",
+  labelColor = "text-content-100",
   isLoading = false,
-  loadingColor = colors.white,
+  loadingColor = colors.content[100],
   ...props
 }: Props) => {
   return (
