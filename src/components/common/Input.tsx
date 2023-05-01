@@ -13,8 +13,8 @@ type Props = TextInputProps & {
   inputStyle?: ViewProps["style"];
 };
 
-const Input = forwardRef(
-  ({ label, icon, touched, error, isPassword = false, inputStyle, ...props }: Props, ref: any) => {
+const Input = forwardRef<TextInput, Props>(
+  ({ label, icon, touched, error, isPassword = false, inputStyle, ...props }: Props, ref) => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const validationIconColor = !touched ? colors.content[200] : error ? colors.error.focus : colors.primary.DEFAULT;
     const validationBorderColor = !touched ? "border-transparent" : error ? "border-error-focus" : "border-transparent";
