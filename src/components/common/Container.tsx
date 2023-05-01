@@ -1,4 +1,4 @@
-import { View, Text, ViewProps } from "react-native";
+import { View, ViewProps } from "react-native";
 import React from "react";
 
 const Container = ({ children, ...props }: ViewProps) => {
