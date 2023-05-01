@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from "react";
+import React, { ComponentProps, forwardRef, useState } from "react";
 import { TextInput, View, Text, TextInputProps, ViewProps, TouchableOpacity } from "react-native";
 import { Feather as Icon } from "@expo/vector-icons";
 import colors from "../../../colors";
@@ -6,8 +6,8 @@ import { styled } from "nativewind";
 
 type Props = TextInputProps & {
   label?: string;
-  icon?: any;
-  error?: any;
+  icon?: ComponentProps<typeof Icon>["name"];
+  error?: string;
   touched?: boolean;
   isPassword?: boolean;
   inputStyle?: ViewProps["style"];
