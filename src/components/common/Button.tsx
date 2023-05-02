@@ -4,7 +4,7 @@ import { Feather as Icon } from "@expo/vector-icons";
 
 import colors from "../../../colors";
 
-type Props = TouchableOpacityProps & {
+type ButtonProps = TouchableOpacityProps & {
   label?: string;
   type?: "primary" | "secondary" | "accent" | "neutral";
   icon?: ComponentProps<typeof Icon>["name"];
@@ -23,7 +23,7 @@ type Props = TouchableOpacityProps & {
  * @param isLoading - If true, a loading spinner is displayed on the button
  * @param outline - If true, the button is displayed with an outline
  * @param props - Other props that can be used with TouchableOpacity component
- * @returns A TouchableOpacity component with appropriate styles and children
+ * @returns {JSX.Element} - A TouchableOpacity component with appropriate styles and children
  */
 const Button = ({
   label,
@@ -33,7 +33,7 @@ const Button = ({
   isLoading = false,
   outline = false,
   ...props
-}: Props) => {
+}: ButtonProps): JSX.Element => {
   let color: string =
     type == "primary"
       ? "bg-primary"
