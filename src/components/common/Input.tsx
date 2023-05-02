@@ -4,7 +4,7 @@ import { Feather as Icon } from "@expo/vector-icons";
 import colors from "../../../colors";
 import { styled } from "nativewind";
 
-type Props = TextInputProps & {
+export type InputProps = TextInputProps & {
   label?: string;
   icon?: ComponentProps<typeof Icon>["name"];
   error?: string;
@@ -13,8 +13,19 @@ type Props = TextInputProps & {
   inputStyle?: ViewProps["style"];
 };
 
-const Input = forwardRef<TextInput, Props>(
-  ({ label, icon, touched, error, isPassword = false, inputStyle, ...props }: Props, ref) => {
+/**
+ * A customizable input field component with optional label and icon
+ *
+ * @param label - Label text to be displayed above the input field
+ * @param icon - Icon to be displayed at the left side of the input field
+ * @param touched - Boolean flag to indicate if the input has been interacted with
+ * @param error - Error message to be displayed below the input field when there's an error
+ * @param isPassword - Boolean flag to indicate if the input field is for password
+ * @param inputStyle - Additional styles to be applied to the input field
+ * @returns {JSX.Element} - A React styled Input component with customizable input fields
+ */
+const Input = forwardRef<TextInput, InputProps>(
+  ({ label, icon, touched, error, isPassword = false, inputStyle, ...props }: InputProps, ref): JSX.Element => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const validationIconColor = !touched ? colors.content[200] : error ? colors.error.focus : colors.primary.DEFAULT;
     const validationBorderColor = !touched ? "border-transparent" : error ? "border-error-focus" : "border-transparent";
