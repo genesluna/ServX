@@ -3,12 +3,18 @@ import React from "react";
 
 import Logo from "../../../../assets/servx_logo_md.png";
 
-type Props = ViewProps & {};
+type HeaderProps = ViewProps & {};
 
-const Header = ({ ...props }: Props) => {
+/**
+ * A component that displays the ServX logo as the header.
+ *
+ * @param {HeaderProps} props - The props object that extends ViewProps interface.
+ * @returns {JSX.Element} - A JSX.Element representing the ServX header.
+ */
+const Header = ({ ...props }: HeaderProps): JSX.Element => {
   return (
-    <View className="" {...props}>
-      <Image className="" source={Logo} />
+    <View {...props}>
+      <Image source={Logo} />
     </View>
   );
 };
