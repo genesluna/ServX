@@ -57,7 +57,7 @@ const Input = forwardRef<TextInput, InputProps>(
                 setShowPassword(!showPassword);
               }}
             >
-              <Icon name={showPassword ? "eye" : "eye-off"} size={16} />
+              <Icon name={showPassword ? "eye-off" : "eye"} size={16} />
             </TouchableOpacity>
           )}
         </View>
