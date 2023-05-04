@@ -7,8 +7,8 @@ import Button from "../../common/Button";
 import Input from "../../common/Input";
 
 type LoginFormProps = ViewProps & {
-  onSubmit?: (values: LoginFormValues) => Promise<void>;
-  onRegister?: (event: GestureResponderEvent) => void;
+  onSubmit: (values: LoginFormValues) => Promise<void>;
+  onRegister: (event: GestureResponderEvent) => void;
 };
 
 export type LoginFormValues = {
@@ -17,16 +17,14 @@ export type LoginFormValues = {
 };
 
 /**
- * LoginForm React Native component that implements a login form.
+ * A form for logging in users.
  *
- * @param {object} props - The component props.
- * @param {function} onSubmit - The function that will be called when the form is submitted. Should return a promise.
- * @param {function} onRegister - The function that will be called when the "register" button is pressed.
- * @param {object} [props.style] - The styles that will be applied to the component.
+ * @param onSubmit - The function that will be called when the form is submitted. Should return a promise.
+ * @param onRegister - The function that will be called when the "register" button is pressed.
  *
- * @returns {JSX.Element} - A JSX element representing the LoginForm component.
+ * @returns - A component that contains the login form.
  */
-const LoginForm = ({ onSubmit = async () => {}, onRegister = () => {}, ...props }: LoginFormProps): JSX.Element => {
+const LoginForm = ({ onSubmit, onRegister, ...props }: LoginFormProps): JSX.Element => {
   const password = useRef<TextInput>(null);
 
   const initialValues: LoginFormValues = { email: "", password: "" };

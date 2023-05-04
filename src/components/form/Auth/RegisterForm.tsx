@@ -8,7 +8,7 @@ import Button from "../../common/Button";
 import { TextInput } from "react-native-gesture-handler";
 
 type RegisterFormProps = ViewProps & {
-  onSubmit?: (values: RegisterFormValues) => Promise<void>;
+  onSubmit: (values: RegisterFormValues) => Promise<void>;
 };
 
 export type RegisterFormValues = {
@@ -22,10 +22,10 @@ export type RegisterFormValues = {
  * A form for registering a new user.
  *
  * @param onSubmit - A callback function to be called when the form is submitted.
- * @param props - Additional props to be passed to the `View` component.
- * @returns {JSX.Element} - A component that contains the register form.
+ *
+ * @returns - A component that contains the register form.
  */
-const RegisterForm = ({ onSubmit = async () => {}, ...props }: RegisterFormProps): JSX.Element => {
+const RegisterForm = ({ onSubmit, ...props }: RegisterFormProps): JSX.Element => {
   const email = useRef<TextInput>(null);
   const password = useRef<TextInput>(null);
   const confirmPassword = useRef<TextInput>(null);
