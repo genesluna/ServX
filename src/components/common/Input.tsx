@@ -32,7 +32,7 @@ const Input = forwardRef<TextInput, InputProps>(
 
     return (
       <View className="flex items-start mb-2" style={inputStyle}>
-        {!!label && icon == undefined && <Text className="pb-1 pl-1">{label}</Text>}
+        {!!label && icon === undefined && <Text className="pb-1 pl-1">{label}</Text>}
         <View className={`flex-row items-center h-12 border-b-2 ${validationBorderColor} focus:border-primary`}>
           {!!icon && (
             <View className="items-center justify-center h-full px-2 mr-1 bg-content-100 w-11">

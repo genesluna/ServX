@@ -50,7 +50,7 @@ const MaskedInput = forwardRef<TextInput, MaskedInputProps>(
       }
 
       function setMask(maskedValue: string) {
-        onChangeUnmasked(mask != "CURRENCY" ? onlyNumbers(maskedValue) : onlyNumbersWithDecimal(maskedValue));
+        onChangeUnmasked(mask !== "CURRENCY" ? onlyNumbers(maskedValue) : onlyNumbersWithDecimal(maskedValue));
         onChangeMask(maskedValue);
         setText(maskedValue);
       }

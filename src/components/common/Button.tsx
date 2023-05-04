@@ -35,11 +35,11 @@ const Button = ({
   ...props
 }: ButtonProps): JSX.Element => {
   let color: string =
-    type == "primary"
+    type === "primary"
       ? "bg-primary"
-      : type == "secondary"
+      : type === "secondary"
       ? "bg-secondary"
-      : type == "accent"
+      : type === "accent"
       ? "bg-accent"
       : "bg-neutral";
   let iconColor: string = colors.content[100];
@@ -47,19 +47,19 @@ const Button = ({
 
   if (outline) {
     color =
-      type == "primary"
+      type === "primary"
         ? "border border-primary"
-        : type == "secondary"
+        : type === "secondary"
         ? "border border-secondary"
-        : type == "accent"
+        : type === "accent"
         ? "border border-accent"
         : "border border-neutral";
     labelColor =
-      type == "primary"
+      type === "primary"
         ? "text-primary"
-        : type == "secondary"
+        : type === "secondary"
         ? "text-secondary"
-        : type == "accent"
+        : type === "accent"
         ? "text-accent"
         : "text-neutral";
     iconColor = colors[type].DEFAULT;
