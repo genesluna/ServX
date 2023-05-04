@@ -1,5 +1,5 @@
 import React from "react";
-import { Keyboard, KeyboardAvoidingView, Platform, ToastAndroid, TouchableWithoutFeedback, View } from "react-native";
+import { Keyboard, KeyboardAvoidingView, Platform, ToastAndroid, TouchableWithoutFeedback } from "react-native";
 
 import { useAuth } from "../../context/AuthContext";
 import RegisterForm, { RegisterFormValues } from "../../components/form/Auth/RegisterForm";
