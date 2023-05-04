@@ -20,16 +20,16 @@ type MaskedInputProps = InputProps & {
 
 /**
  *
- * A masked input component for React Native.
+ * A masked input component.
  *
- * @param {InputProps} props - Props for the underlying TextInput component.
- * @param {"PHONE" | "CURRENCY" | "CPF" | "CNPJ"} mask - The type of mask to be applied to the input.
- * @param {function} onChangeMask - Callback function called when the masked value changes.
- * @param {function} onChangeUnmasked - Callback function called when the unmasked value changes.
- * @returns {JSX.Element} - A styled Input component with the specified mask applied.
+ * @param mask - The type of mask to be applied to the input.
+ * @param onChangeMask - Callback function called when the masked value changes.
+ * @param onChangeUnmasked - Callback function called when the unmasked value changes.
+ *
+ * @returns - A styled Input component with the specified mask applied.
  */
 const MaskedInput = forwardRef<TextInput, MaskedInputProps>(
-  ({ mask, onChangeMask = () => {}, onChangeUnmasked = () => {}, ...props }: MaskedInputProps, ref): JSX.Element => {
+  ({ mask, onChangeMask, onChangeUnmasked, ...props }: MaskedInputProps, ref): JSX.Element => {
     const [text, setText] = useState<string>("");
     let maxLength: number = mask === "PHONE" ? 15 : mask === "CPF" ? 14 : mask === "CNPJ" ? 18 : 16;
 
@@ -50,8 +50,8 @@ const MaskedInput = forwardRef<TextInput, MaskedInputProps>(
       }
 
       function setMask(maskedValue: string) {
-        onChangeUnmasked(mask !== "CURRENCY" ? onlyNumbers(maskedValue) : onlyNumbersWithDecimal(maskedValue));
-        onChangeMask(maskedValue);
+        onChangeUnmasked?.(mask !== "CURRENCY" ? onlyNumbers(maskedValue) : onlyNumbersWithDecimal(maskedValue));
+        onChangeMask?.(maskedValue);
         setText(maskedValue);
       }
     }

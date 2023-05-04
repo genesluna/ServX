@@ -22,7 +22,8 @@ export type InputProps = TextInputProps & {
  * @param error - Error message to be displayed below the input field when there's an error
  * @param isPassword - Boolean flag to indicate if the input field is for password
  * @param inputStyle - Additional styles to be applied to the input field
- * @returns {JSX.Element} - A React styled Input component with customizable input fields
+ *
+ * @returns - A React styled Input component with customizable input fields
  */
 const Input = forwardRef<TextInput, InputProps>(
   ({ label, icon, touched, error, isPassword = false, inputStyle, ...props }: InputProps, ref): JSX.Element => {

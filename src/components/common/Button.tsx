@@ -22,8 +22,8 @@ type ButtonProps = TouchableOpacityProps & {
  * @param iconOnly - If true, only icon is displayed on the button
  * @param isLoading - If true, a loading spinner is displayed on the button
  * @param outline - If true, the button is displayed with an outline
- * @param props - Other props that can be used with TouchableOpacity component
- * @returns {JSX.Element} - A TouchableOpacity component with appropriate styles and children
+ *
+ * @returns - A TouchableOpacity component with appropriate styles and children
  */
 const Button = ({
   label,
