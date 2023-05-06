@@ -3,6 +3,7 @@ export declare global {
     interface RootParamList {
       login: undefined;
       register: undefined;
+      tenant: undefined;
       home: undefined;
     }
   }
