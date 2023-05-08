@@ -5,14 +5,18 @@ import { useAuth } from "../../context/AuthContext";
 import RegisterForm, { RegisterFormValues } from "../../components/form/Auth/RegisterForm";
 import Header from "../../components/form/Auth/Header";
 import Container from "../../components/common/Container";
+import { useNavigation } from "@react-navigation/native";
 
 const Register = () => {
-  const { register } = useAuth();
+  const { register, reloadAuthUser } = useAuth();
+  const navigation = useNavigation();
 
   async function handleRegister({ name, email, password }: RegisterFormValues) {
     try {
       let result = await register(email, password);
       await result.user.updateProfile({ displayName: name });
+      await reloadAuthUser();
+      navigation.reset({ index: 0, routes: [{ name: "tenant" }] });
     } catch (error: any) {
       if (error.code === "auth/email-already-in-use") {
         ToastAndroid.showWithGravity("Este email já está cadastrado", ToastAndroid.LONG, ToastAndroid.TOP);
