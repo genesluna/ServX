@@ -123,6 +123,7 @@ const RegisterForm = ({ onSubmit, ...props }: RegisterFormProps): JSX.Element =>
       />
 
       <Button
+        icon="file-text"
         className="mt-6 mb-10"
         label="registrar"
         onPress={() => handleSubmit()}
