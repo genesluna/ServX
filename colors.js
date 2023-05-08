@@ -30,6 +30,7 @@ module.exports = {
   },
 
   base: {
+    50: "#ffffff",
     100: "#F0F0F0",
     150: "#e7e9eb",
     200: "#e2e8f0",
