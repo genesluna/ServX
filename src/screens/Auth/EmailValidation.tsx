@@ -1,4 +1,4 @@
-import { View, Text, ToastAndroid } from "react-native";
+import { View, ToastAndroid } from "react-native";
 import React, { useState } from "react";
 import { Feather as Icon } from "@expo/vector-icons";
 
@@ -7,6 +7,7 @@ import Container from "../../components/common/Container";
 import Button from "../../components/common/Button";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
+import Text from "../../components/common/Text";
 
 const EmailValidation = () => {
   const [isLoadingResend, setIsLoadingResend] = useState<boolean>(false);
@@ -54,10 +55,12 @@ const EmailValidation = () => {
       </View>
 
       <View className="flex-1  w-full">
-        <Text className="text-base text-justify dark:text-content-100">
+        <Text size="base" className="text-justify">
           Antes de cadastrar a sua empresa, acesse o seu e-mail e clique no link para confirmação do email informado.
         </Text>
-        <Text className="text-base text-justify my-6 dark:text-content-100">Depois clique no botão abaixo:</Text>
+        <Text size="base" className="text-justify my-6">
+          Depois clique no botão abaixo:
+        </Text>
         <Button
           type="accent"
           icon="check-circle"
@@ -65,7 +68,7 @@ const EmailValidation = () => {
           onPress={handeVerifyEmail}
           isLoading={isLoadingVerify}
         />
-        <Text className="text-base text-justify my-6 dark:text-content-100">
+        <Text size="base" className="text-justify my-6">
           O e-mail pode estar na caixa de Span. Caso não o encontre, você pode solicitar o reenvio clicando no botão
           abaixo:
         </Text>

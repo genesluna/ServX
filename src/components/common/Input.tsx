@@ -1,8 +1,10 @@
 import React, { ComponentProps, forwardRef, useState } from "react";
-import { TextInput, View, Text, TextInputProps, ViewProps, TouchableOpacity } from "react-native";
+import { TextInput, View, TextInputProps, ViewProps, TouchableOpacity } from "react-native";
 import { Feather as Icon } from "@expo/vector-icons";
-import colors from "../../../colors";
 import { styled, useColorScheme } from "nativewind";
+
+import colors from "../../../colors";
+import Text from "./Text";
 
 export type InputProps = TextInputProps & {
   label?: string;
@@ -45,7 +47,7 @@ const Input = forwardRef<TextInput, InputProps>(
 
     return (
       <View className="flex items-start mb-2" style={inputStyle}>
-        {!!label && icon === undefined && <Text className="pb-1 pl-1">{label}</Text>}
+        {!!label && <Text className="pb-1 pl-1">{label}</Text>}
         <View className={`flex-row items-center h-12 border-b-2 ${validationBorderColor} focus:border-primary`}>
           {!!icon && (
             <View className={`items-center justify-center h-full px-2 mr-1 w-11 ${readOnlyColor}`}>
