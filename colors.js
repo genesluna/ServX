@@ -29,6 +29,7 @@ module.exports = {
 
   base: {
     100: "#F0F0F0",
+    150: "#e7e9eb",
     200: "#e2e8f0",
     300: "#cbd5e1",
     400: "#1f1f1f",
