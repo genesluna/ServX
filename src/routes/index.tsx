@@ -5,16 +5,16 @@ import { useAuth } from "../context/AuthContext";
 
 /**
  * A component that renders the appropriate set of routes based on the user's authentication status.
- * @returns {JSX.Element} The rendered React component.
+ *
+ * @returns The appropriate rendered React component.
  */
 export function Routes(): JSX.Element {
-  const { currentUser } = useAuth();
-  console.log(currentUser);
+  const { appUser, authUser } = useAuth();
 
   return (
     <NavigationContainer>
-      {!currentUser && <AuthRoutes />}
-      {currentUser && <UserRoutes />}
+      {!appUser && <AuthRoutes />}
+      {appUser && authUser && <UserRoutes />}
     </NavigationContainer>
   );
 }
