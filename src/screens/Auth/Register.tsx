@@ -15,15 +15,17 @@ const Register = () => {
     try {
       let result = await register(email, password);
       await result.user.updateProfile({ displayName: name });
+      await result.user.sendEmailVerification();
       await reloadAuthUser();
-      navigation.reset({ index: 0, routes: [{ name: "tenant" }] });
+      ToastAndroid.show("Usuário cadastrado com sucesso.", ToastAndroid.LONG);
+      navigation.reset({ index: 0, routes: [{ name: "emailValidation" }] });
     } catch (error: any) {
       if (error.code === "auth/email-already-in-use") {
         ToastAndroid.showWithGravity("Este email já está cadastrado", ToastAndroid.LONG, ToastAndroid.TOP);
       }
 
       if (error.code === "auth/invalid-email") {
-        ToastAndroid.showWithGravity("Email inválido", ToastAndroid.LONG, ToastAndroid.TOP);
+        ToastAndroid.showWithGravity("Email inválido", ToastAndroid.SHORT, ToastAndroid.TOP);
       }
 
       console.log(error);
