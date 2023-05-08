@@ -2,7 +2,7 @@ import React, { ComponentProps, forwardRef, useState } from "react";
 import { TextInput, View, Text, TextInputProps, ViewProps, TouchableOpacity } from "react-native";
 import { Feather as Icon } from "@expo/vector-icons";
 import colors from "../../../colors";
-import { styled } from "nativewind";
+import { styled, useColorScheme } from "nativewind";
 
 export type InputProps = TextInputProps & {
   label?: string;
@@ -33,9 +33,15 @@ const Input = forwardRef<TextInput, InputProps>(
     ref
   ): JSX.Element => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
-    const validationIconColor = !touched ? colors.content[200] : error ? colors.error.focus : colors.primary.DEFAULT;
-    const validationBorderColor = !touched ? "border-transparent" : error ? "border-error-focus" : "border-transparent";
-    const readOnlyColor = readOnly ? "bg-base-150" : "bg-content-100";
+    const { colorScheme } = useColorScheme();
+    const validationIconColor = !touched ? colors.content[300] : error ? colors.error.focus : colors.primary.DEFAULT;
+    const validationIconColorDark = !touched ? colors.base[300] : error ? colors.error.DEFAULT : colors.primary.DEFAULT;
+    const validationBorderColor = !touched
+      ? "border-transparent"
+      : error
+      ? "border-error-focus dark:border-error"
+      : "border-transparent";
+    const readOnlyColor = readOnly ? "bg-base-150 dark:bg-base-700" : "bg-content-100 dark:bg-base-400";
 
     return (
       <View className="flex items-start mb-2" style={inputStyle}>
@@ -43,14 +49,19 @@ const Input = forwardRef<TextInput, InputProps>(
         <View className={`flex-row items-center h-12 border-b-2 ${validationBorderColor} focus:border-primary`}>
           {!!icon && (
             <View className={`items-center justify-center h-full px-2 mr-1 w-11 ${readOnlyColor}`}>
-              <Icon name={icon} size={16} color={validationIconColor} />
+              <Icon
+                name={icon}
+                size={16}
+                color={colorScheme === "dark" ? validationIconColorDark : validationIconColor}
+              />
             </View>
           )}
           <View className={`justify-center flex-1 h-full pl-4 ${readOnlyColor}`}>
             <TextInput
+              className="text-content-400 dark:text-content-100"
               editable={!readOnly}
               underlineColorAndroid="transparent"
-              placeholderTextColor={colors.content[200]}
+              placeholderTextColor={colorScheme === "dark" ? colors.content[200] : colors.content[300]}
               secureTextEntry={isPassword && !showPassword}
               ref={ref}
               {...props}
@@ -58,17 +69,21 @@ const Input = forwardRef<TextInput, InputProps>(
           </View>
           {isPassword && !readOnly && (
             <TouchableOpacity
-              className="items-center justify-center h-full px-4 bg-content-100"
+              className={`items-center justify-center h-full px-4 ${readOnlyColor}`}
               activeOpacity={1}
               onPress={() => {
                 setShowPassword(!showPassword);
               }}
             >
-              <Icon name={showPassword ? "eye-off" : "eye"} size={16} />
+              <Icon
+                name={showPassword ? "eye-off" : "eye"}
+                size={16}
+                color={colorScheme === "dark" ? colors.content[200] : colors.content[400]}
+              />
             </TouchableOpacity>
           )}
         </View>
-        {touched && error ? <Text className="pt-1 pl-3 text-error-focus">{error}</Text> : null}
+        {touched && error ? <Text className="pt-1 pl-3 text-error-focus dark:text-error">{error}</Text> : null}
       </View>
     );
   }

@@ -3,6 +3,7 @@ import { ActivityIndicator, Text, TouchableOpacity, TouchableOpacityProps, View 
 import { Feather as Icon } from "@expo/vector-icons";
 
 import colors from "../../../colors";
+import { useColorScheme } from "nativewind";
 
 type ButtonProps = TouchableOpacityProps & {
   label?: string;
@@ -34,35 +35,36 @@ const Button = ({
   outline = false,
   ...props
 }: ButtonProps): JSX.Element => {
+  const { colorScheme } = useColorScheme();
   let color: string =
     type === "primary"
-      ? "bg-primary"
+      ? "bg-primary dark:bg-primary-focus"
       : type === "secondary"
-      ? "bg-secondary"
+      ? "bg-secondary dark:bg-secondary-focus"
       : type === "accent"
-      ? "bg-accent"
+      ? "bg-accent dark:bg-accent-focus"
       : "bg-neutral";
-  let iconColor: string = colors.content[100];
-  let labelColor: string = "text-content-100";
+  let iconColor: string = colorScheme === "dark" ? colors.content[150] : colors.content[100];
+  let labelColor: string = "text-content-100 dark:text-content-150";
 
   if (outline) {
     color =
       type === "primary"
-        ? "border border-primary"
+        ? "border border-primary dark:border-primary-focus"
         : type === "secondary"
-        ? "border border-secondary"
+        ? "border border-secondary dark:border-secondary-focus"
         : type === "accent"
-        ? "border border-accent"
+        ? "border border-accent dark:border-accent-focus"
         : "border border-neutral";
     labelColor =
       type === "primary"
-        ? "text-primary"
+        ? "text-primary dark:text-primary-focus"
         : type === "secondary"
-        ? "text-secondary"
+        ? "text-secondary dark:text-secondary-focus"
         : type === "accent"
-        ? "text-accent"
+        ? "text-accent dark:text-accent-focus"
         : "text-neutral";
-    iconColor = colors[type].DEFAULT;
+    iconColor = colorScheme === "dark" ? colors[type].focus : colors[type].DEFAULT;
   }
 
   return (
