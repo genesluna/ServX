@@ -7,6 +7,7 @@ import { styled } from "nativewind";
 export type InputProps = TextInputProps & {
   label?: string;
   icon?: ComponentProps<typeof Icon>["name"];
+  readOnly?: boolean;
   error?: string;
   touched?: boolean;
   isPassword?: boolean;
@@ -18,6 +19,7 @@ export type InputProps = TextInputProps & {
  *
  * @param label - Label text to be displayed above the input field
  * @param icon - Icon to be displayed at the left side of the input field
+ * @param readOnly - Boolean flag to indicate if the input is editable
  * @param touched - Boolean flag to indicate if the input has been interacted with
  * @param error - Error message to be displayed below the input field when there's an error
  * @param isPassword - Boolean flag to indicate if the input field is for password
@@ -26,23 +28,27 @@ export type InputProps = TextInputProps & {
  * @returns - A React styled Input component with customizable input fields
  */
 const Input = forwardRef<TextInput, InputProps>(
-  ({ label, icon, touched, error, isPassword = false, inputStyle, ...props }: InputProps, ref): JSX.Element => {
+  (
+    { label, icon, readOnly = false, touched, error, isPassword = false, inputStyle, ...props }: InputProps,
+    ref
+  ): JSX.Element => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const validationIconColor = !touched ? colors.content[200] : error ? colors.error.focus : colors.primary.DEFAULT;
     const validationBorderColor = !touched ? "border-transparent" : error ? "border-error-focus" : "border-transparent";
+    const readOnlyColor = readOnly ? "bg-base-150" : "bg-content-100";
 
     return (
       <View className="flex items-start mb-2" style={inputStyle}>
         {!!label && icon === undefined && <Text className="pb-1 pl-1">{label}</Text>}
         <View className={`flex-row items-center h-12 border-b-2 ${validationBorderColor} focus:border-primary`}>
           {!!icon && (
-            <View className="items-center justify-center h-full px-2 mr-1 bg-content-100 w-11">
+            <View className={`items-center justify-center h-full px-2 mr-1 w-11 ${readOnlyColor}`}>
               <Icon name={icon} size={16} color={validationIconColor} />
             </View>
           )}
-          <View className="justify-center flex-1 h-full pl-4 bg-content-100">
+          <View className={`justify-center flex-1 h-full pl-4 ${readOnlyColor}`}>
             <TextInput
-              className=""
+              editable={!readOnly}
               underlineColorAndroid="transparent"
               placeholderTextColor={colors.content[200]}
               secureTextEntry={isPassword && !showPassword}
@@ -50,7 +56,7 @@ const Input = forwardRef<TextInput, InputProps>(
               {...props}
             />
           </View>
-          {isPassword && (
+          {isPassword && !readOnly && (
             <TouchableOpacity
               className="items-center justify-center h-full px-4 bg-content-100"
               activeOpacity={1}
