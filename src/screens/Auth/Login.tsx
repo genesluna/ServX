@@ -5,10 +5,15 @@ import LoginForm, { LoginFormValues } from "../../components/form/Auth/LoginForm
 import { useNavigation } from "@react-navigation/native";
 import Header from "../../components/form/Auth/Header";
 import Container from "../../components/common/Container";
+import { useEffect } from "react";
 
 const Login = () => {
   const navigation = useNavigation();
-  const { login } = useAuth();
+  const { login, authUser } = useAuth();
+
+  useEffect(() => {
+    if (authUser) navigation.reset({ index: 0, routes: [{ name: "tenant" }] });
+  }, []);
 
   function openRegisterScreen() {
     navigation.navigate("register");
