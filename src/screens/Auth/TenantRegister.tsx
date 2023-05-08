@@ -8,10 +8,9 @@ import { createMembership, createTenant } from "../../services/firestore/tenantS
 
 type Props = {};
 
-const Tenant = (props: Props) => {
+const TenantRegister = (props: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { authUser, logout } = useAuth();
-  //console.log(authUser);
+  const { authUser, logout, reloadAuthUser } = useAuth();
 
   async function handleTenantRegister() {
     try {
@@ -47,13 +46,30 @@ const Tenant = (props: Props) => {
     }
   }
 
+  async function handleVerifyEmail() {
+    try {
+      setIsLoading(true);
+      await reloadAuthUser();
+      if (authUser?.emailVerified) {
+        console.log("Email verificado");
+      } else {
+        console.log("Email não verificado");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <Container>
       <Text className="text-3xl">Tenant</Text>
       <Button label="cadastrar" onPress={handleTenantRegister} isLoading={isLoading} />
       <Button className="mt-4" label="logout" onPress={logout} />
+      <Button className="mt-4" label="Veificar email" onPress={handleVerifyEmail} isLoading={isLoading} />
     </Container>
   );
 };
 
-export default Tenant;
+export default TenantRegister;
