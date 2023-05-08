@@ -37,7 +37,7 @@ const EmailValidation = () => {
     } finally {
       if (authUser?.emailVerified) {
         ToastAndroid.show("O e-mail foi validado com sucesso.", ToastAndroid.LONG);
-        navigation.reset({ index: 0, routes: [{ name: "tenant" }] });
+        navigation.reset({ index: 0, routes: [{ name: "tenantRegister" }] });
       } else {
         ToastAndroid.show(
           "O e-mail ainda não pode ser validado. Tente novamente em alguns segundos",

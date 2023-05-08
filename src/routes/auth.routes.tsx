@@ -4,9 +4,9 @@ import { useColorScheme } from "nativewind";
 import colors from "../../colors";
 import Login from "../screens/Auth/Login";
 import Register from "../screens/Auth/Register";
-import Tenant from "../screens/Auth/Tenant";
 import ForgotPassword from "../screens/Auth/ForgotPassword";
 import EmailValidation from "../screens/Auth/EmailValidation";
+import TenantRegister from "../screens/Auth/TenantRegister";
 
 const { Screen, Navigator } = createNativeStackNavigator();
 
@@ -15,7 +15,7 @@ export function AuthRoutes() {
 
   return (
     <Navigator
-      initialRouteName="login"
+      initialRouteName="emailValidation"
       screenOptions={{
         headerTitleAlign: "center",
         statusBarColor: colorScheme === "dark" ? colors.base[400] : "",
@@ -54,7 +54,7 @@ export function AuthRoutes() {
       />
       <Screen
         name="tenant"
-        component={Tenant}
+        component={TenantRegister}
         options={{
           title: "Registro da Empresa",
         }}

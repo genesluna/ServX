@@ -5,7 +5,7 @@ export declare global {
       register: undefined;
       emailValidation: undefined;
       forgotPassword: undefined;
-      tenant: undefined;
+      tenantRegister: undefined;
       home: undefined;
     }
   }
