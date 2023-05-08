@@ -12,11 +12,21 @@ const Login = () => {
   const { login, authUser } = useAuth();
 
   useEffect(() => {
-    if (authUser) navigation.reset({ index: 0, routes: [{ name: "tenant" }] });
+    if (authUser) {
+      if (authUser.emailVerified) {
+        navigation.reset({ index: 0, routes: [{ name: "tenantRegister" }] });
+      } else {
+        navigation.reset({ index: 0, routes: [{ name: "emailValidation" }] });
+      }
+    }
   }, []);
 
   function openRegisterScreen() {
     navigation.navigate("register");
+  }
+
+  function openForgotPasswordScreen() {
+    navigation.navigate("forgotPassword");
   }
 
   async function handleLogin({ email, password }: LoginFormValues) {
@@ -33,7 +43,11 @@ const Login = () => {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Container>
           <Header />
-          <LoginForm onSubmit={handleLogin} onRegister={openRegisterScreen} />
+          <LoginForm
+            onSubmit={handleLogin}
+            onRegister={openRegisterScreen}
+            onForgotPassword={openForgotPasswordScreen}
+          />
         </Container>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>

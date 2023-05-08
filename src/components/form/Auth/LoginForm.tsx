@@ -1,14 +1,16 @@
 import React, { useRef } from "react";
-import { GestureResponderEvent, TextInput, View, ViewProps } from "react-native";
+import { GestureResponderEvent, TextInput, TouchableOpacity, View, ViewProps } from "react-native";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import Button from "../../common/Button";
 import Input from "../../common/Input";
+import Text from "../../common/Text";
 
 type LoginFormProps = ViewProps & {
   onSubmit: (values: LoginFormValues) => Promise<void>;
   onRegister: (event: GestureResponderEvent) => void;
+  onForgotPassword: (event: GestureResponderEvent) => void;
 };
 
 export type LoginFormValues = {
@@ -24,7 +26,7 @@ export type LoginFormValues = {
  *
  * @returns - A component that contains the login form.
  */
-const LoginForm = ({ onSubmit, onRegister, ...props }: LoginFormProps): JSX.Element => {
+const LoginForm = ({ onSubmit, onRegister, onForgotPassword, ...props }: LoginFormProps): JSX.Element => {
   const password = useRef<TextInput>(null);
 
   const initialValues: LoginFormValues = { email: "", password: "" };
@@ -78,14 +80,19 @@ const LoginForm = ({ onSubmit, onRegister, ...props }: LoginFormProps): JSX.Elem
       />
 
       <Button
+        icon="log-in"
         className="mt-6"
-        label="login"
+        label="entrar"
         onPress={() => handleSubmit()}
         disabled={isSubmitting}
         isLoading={isSubmitting}
       />
 
-      <Button className="mt-3 mb-10" type="secondary" label="registrar" onPress={onRegister} />
+      <Button icon="file-text" className="mt-3" type="secondary" label="registrar" onPress={onRegister} />
+
+      <TouchableOpacity className="my-3 items-center h-8 justify-center" activeOpacity={0.7} onPress={onForgotPassword}>
+        <Text>Esqueceu a senha?</Text>
+      </TouchableOpacity>
     </View>
   );
 };
