@@ -12,6 +12,7 @@ const Login = () => {
   const { login, authUser } = useAuth();
 
   useEffect(() => {
+    // Handles unfinished registration when the user is still logged in and restarts the app
     if (authUser) {
       if (authUser.emailVerified) {
         navigation.reset({ index: 0, routes: [{ name: "tenantRegister" }] });
@@ -32,6 +33,7 @@ const Login = () => {
   async function handleLogin({ email, password }: LoginFormValues) {
     try {
       await login(email, password);
+      // TODO: handle unfinished registration during new login
     } catch (error) {
       ToastAndroid.showWithGravity("Email ou senha incorretos", ToastAndroid.LONG, ToastAndroid.TOP);
       console.log(error);
