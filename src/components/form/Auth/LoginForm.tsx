@@ -48,7 +48,7 @@ const LoginForm = ({ onSubmit, onRegister, onForgotPassword, ...props }: LoginFo
     <View className="w-full mt-6 mb-4" {...props}>
       <Input
         icon="mail"
-        placeholder="Digite seu email"
+        placeholder="Digite seu e-mail"
         autoCapitalize="none"
         autoComplete="email"
         keyboardType="email-address"
