@@ -90,7 +90,7 @@ const LoginForm = ({ onSubmit, onRegister, onForgotPassword, ...props }: LoginFo
 
       <Button icon="file-text" className="mt-3" type="secondary" label="registrar" onPress={onRegister} />
 
-      <TouchableOpacity className="my-3 items-center h-8 justify-center" activeOpacity={0.7} onPress={onForgotPassword}>
+      <TouchableOpacity className="items-center justify-center h-8 my-3" activeOpacity={0.7} onPress={onForgotPassword}>
         <Text>Esqueceu a senha?</Text>
       </TouchableOpacity>
     </View>

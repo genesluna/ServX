@@ -50,15 +50,15 @@ const EmailValidation = () => {
 
   return (
     <Container>
-      <View className="p-8 my-10 justify-center rounded-full bg-content-200 dark:bg-base-600">
+      <View className="justify-center p-8 my-10 rounded-full bg-content-200 dark:bg-base-600">
         <Icon name="mail" size={50} color={colors.content[100]} />
       </View>
 
-      <View className="flex-1  w-full">
+      <View className="flex-1 w-full">
         <Text size="base" className="text-justify">
           Antes de cadastrar a sua empresa, acesse o seu e-mail e clique no link para confirmação do email informado.
         </Text>
-        <Text size="base" className="text-justify my-6">
+        <Text size="base" className="my-6 text-justify">
           Depois clique no botão abaixo:
         </Text>
         <Button
@@ -68,7 +68,7 @@ const EmailValidation = () => {
           onPress={handeVerifyEmail}
           isLoading={isLoadingVerify}
         />
-        <Text size="base" className="text-justify my-6">
+        <Text size="base" className="my-6 text-justify">
           O e-mail pode estar na caixa de Span. Caso não o encontre, você pode solicitar o reenvio clicando no botão
           abaixo:
         </Text>
