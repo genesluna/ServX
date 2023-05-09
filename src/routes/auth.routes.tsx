@@ -42,7 +42,7 @@ export function AuthRoutes() {
         name="forgotPassword"
         component={ForgotPassword}
         options={{
-          title: "Senha esquecida",
+          title: "Recuperação de senha",
         }}
       />
       <Screen
