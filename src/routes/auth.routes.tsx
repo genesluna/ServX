@@ -49,7 +49,7 @@ export function AuthRoutes() {
         name="emailValidation"
         component={EmailValidation}
         options={{
-          title: "Validação de email",
+          title: "Verificação de e-mail",
         }}
       />
       <Screen
