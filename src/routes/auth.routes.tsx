@@ -15,7 +15,7 @@ export function AuthRoutes() {
 
   return (
     <Navigator
-      initialRouteName="emailValidation"
+      initialRouteName="login"
       screenOptions={{
         headerTitleAlign: "center",
         statusBarColor: colorScheme === "dark" ? colors.base[400] : "",
@@ -53,7 +53,7 @@ export function AuthRoutes() {
         }}
       />
       <Screen
-        name="tenant"
+        name="tenantRegister"
         component={TenantRegister}
         options={{
           title: "Registro da Empresa",
