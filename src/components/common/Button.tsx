@@ -7,7 +7,7 @@ import { useColorScheme } from "nativewind";
 
 type ButtonProps = TouchableOpacityProps & {
   label?: string;
-  type?: "primary" | "secondary" | "accent" | "neutral";
+  type?: "primary" | "secondary" | "accent" | "neutral" | "danger";
   icon?: ComponentProps<typeof Icon>["name"];
   iconOnly?: boolean;
   isLoading?: boolean;
@@ -43,6 +43,8 @@ const Button = ({
       ? "bg-secondary dark:bg-secondary-focus"
       : type === "accent"
       ? "bg-accent dark:bg-accent-focus"
+      : type === "danger"
+      ? "bg-danger dark:bg-danger-focus"
       : "bg-neutral";
   let iconColor: string = colorScheme === "dark" ? colors.content[150] : colors.content[100];
   let labelColor: string = "text-content-100 dark:text-content-150";
@@ -55,6 +57,8 @@ const Button = ({
         ? "border border-secondary dark:border-secondary-focus"
         : type === "accent"
         ? "border border-accent dark:border-accent-focus"
+        : type === "danger"
+        ? "border border-danger dark:border-danger-focus"
         : "border border-neutral";
     labelColor =
       type === "primary"
@@ -63,6 +67,8 @@ const Button = ({
         ? "text-secondary dark:text-secondary-focus"
         : type === "accent"
         ? "text-accent dark:text-accent-focus"
+        : type === "danger"
+        ? "text-danger dark:text-danger-focus"
         : "text-neutral";
     iconColor = colorScheme === "dark" ? colors[type].focus : colors[type].DEFAULT;
   }
