@@ -75,7 +75,7 @@ const RegisterForm = ({ onSubmit, ...props }: RegisterFormProps): JSX.Element =>
       <Input
         ref={email}
         icon="mail"
-        placeholder="Digite o seu email"
+        placeholder="Digite o seu e-mail"
         autoCapitalize="none"
         autoComplete="email"
         keyboardType="email-address"
