@@ -18,7 +18,6 @@ export function AuthRoutes() {
       initialRouteName="login"
       screenOptions={{
         headerTitleAlign: "center",
-        statusBarColor: colorScheme === "dark" ? colors.base[400] : "",
         headerTintColor: colorScheme === "dark" ? colors.content[150] : colors.content[400],
         headerStyle: { backgroundColor: colorScheme === "dark" ? colors.base[400] : colors.base[50] },
         animation: "slide_from_right",
