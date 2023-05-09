@@ -4,7 +4,6 @@ import React, { useRef } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-import { useAuth } from "../../../context/AuthContext";
 import Button from "../../common/Button";
 import Input from "../../common/Input";
 import colors from "../../../../colors";
@@ -22,7 +21,6 @@ export type TenantRegisterFormValues = {
 };
 
 const TenantRegisterForm = ({ onSubmit, ...props }: TenantRegisterFormProps) => {
-  const { authUser } = useAuth();
   const phone = useRef<TextInput>(null);
   const email = useRef<TextInput>(null);
 
@@ -43,11 +41,10 @@ const TenantRegisterForm = ({ onSubmit, ...props }: TenantRegisterFormProps) => 
   });
 
   return (
-    <View className="w-full items-center" {...props}>
-      <View className="p-8 mb-12 justify-center rounded-full bg-content-200 dark:bg-base-600">
+    <View className="items-center justify-end flex-1 w-full" {...props}>
+      <View className="justify-center p-8 my-10 rounded-full bg-base-400 dark:bg-base-600">
         <Icon name="add-business" size={50} color={colors.content[100]} />
       </View>
-
       <Input
         icon="briefcase"
         autoCapitalize="words"
@@ -63,7 +60,6 @@ const TenantRegisterForm = ({ onSubmit, ...props }: TenantRegisterFormProps) => 
         value={values.name}
         onSubmitEditing={() => phone.current?.focus()}
       />
-
       <MaskedInput
         ref={phone}
         icon="phone"
@@ -79,7 +75,6 @@ const TenantRegisterForm = ({ onSubmit, ...props }: TenantRegisterFormProps) => 
         value={values.phone}
         onSubmitEditing={() => email.current?.focus()}
       />
-
       <Input
         ref={email}
         icon="mail"
@@ -96,20 +91,21 @@ const TenantRegisterForm = ({ onSubmit, ...props }: TenantRegisterFormProps) => 
         value={values.email}
         onSubmitEditing={() => handleSubmit()}
       />
-
-      <Text size="sm" className="my-6 text-justify w-full">
+      <Text size="sm" className="w-full mt-6 mb-8 text-justify">
         Esse é um cadastro básico da empresa. Você poderar adicionar mais informações, como CNPJ, endereço, logotipo,
         etc., no menu de configuração do aplicativo.
       </Text>
-
       <Button
         icon="file-text"
-        className="w-full mb-16"
+        className="w-full"
         label="registrar empresa"
         onPress={() => handleSubmit()}
         disabled={isSubmitting}
         isLoading={isSubmitting}
       />
+
+      {/* KeyboardAvoidingView fix */}
+      <View className="flex-1" />
     </View>
   );
 };
