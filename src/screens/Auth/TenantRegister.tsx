@@ -1,37 +1,35 @@
-import { View, Text } from "react-native";
-import React, { useState } from "react";
+import { KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from "react-native";
+import React from "react";
+
 import Container from "../../components/common/Container";
 import { useAuth } from "../../context/AuthContext";
-import Button from "../../components/common/Button";
 import { createUser } from "../../services/firestore/userService";
 import { createMembership, createTenant } from "../../services/firestore/tenantService";
+import TenantRegisterForm, { TenantRegisterFormValues } from "../../components/form/Auth/TenantRegisterForm";
 
-type Props = {};
+const TenantRegister = () => {
+  const { authUser } = useAuth();
 
-const TenantRegister = (props: Props) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { authUser, logout, reloadAuthUser } = useAuth();
-
-  async function handleTenantRegister() {
+  async function handleTenantRegister(data: TenantRegisterFormValues) {
     try {
-      setIsLoading(true);
       const result = await createTenant({
-        name: "Manutenção Express",
-        email: "sac@manutencaoexpress.com.br",
+        name: data.name,
+        email: data.email,
+        phoneNumber: data.phone,
         createdBy: authUser?.uid,
       });
       await createUser(
         {
           name: authUser?.displayName,
           email: authUser?.email!,
-          activeTenant: { tenantId: result.id, tenantName: "Manutenção Express" },
+          activeTenant: { tenantId: result.id, tenantName: data.name },
         },
         authUser?.uid!
       );
       return await createMembership(
         {
           tenantId: result.id,
-          tenantName: "Manutenção Express",
+          tenantName: data.name,
           name: authUser?.displayName,
           active: true,
           role: "admin",
@@ -41,34 +39,17 @@ const TenantRegister = (props: Props) => {
       );
     } catch (error) {
       console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
-  async function handleVerifyEmail() {
-    try {
-      setIsLoading(true);
-      await reloadAuthUser();
-      if (authUser?.emailVerified) {
-        console.log("Email verificado");
-      } else {
-        console.log("Email não verificado");
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
     }
   }
 
   return (
-    <Container>
-      <Text className="text-3xl">Tenant</Text>
-      <Button label="cadastrar" onPress={handleTenantRegister} isLoading={isLoading} />
-      <Button className="mt-4" label="logout" onPress={logout} />
-      <Button className="mt-4" label="Veificar email" onPress={handleVerifyEmail} isLoading={isLoading} />
-    </Container>
+    <KeyboardAvoidingView className="flex-1" behavior={Platform.OS === "ios" ? "padding" : "height"}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <Container>
+          <TenantRegisterForm onSubmit={handleTenantRegister} />
+        </Container>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 
