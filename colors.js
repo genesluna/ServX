@@ -16,6 +16,11 @@ module.exports = {
     focus: "#367000",
   },
 
+  danger: {
+    DEFAULT: "#ff6347",
+    focus: "#dc2626",
+  },
+
   neutral: {
     DEFAULT: "#1b1d1d",
     focus: "#131616",
@@ -38,6 +43,7 @@ module.exports = {
     400: "#2f2f2f",
     450: "#2b2b2b",
     500: "#212121",
+    550: "#1b1d1d",
     600: "#181818",
     700: "#0d0d0d",
   },
