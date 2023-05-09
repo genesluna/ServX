@@ -50,7 +50,7 @@ const EmailValidation = () => {
 
   return (
     <Container>
-      <View className="justify-center p-8 my-10 rounded-full bg-content-200 dark:bg-base-600">
+      <View className="justify-center p-8 my-10 rounded-full bg-base-400 dark:bg-base-600">
         <Icon name="mail" size={50} color={colors.content[100]} />
       </View>
 
