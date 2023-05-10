@@ -1,12 +1,10 @@
 import { Text } from "react-native";
 import React from "react";
-import Button from "../components/common/Button";
-import { useAuth } from "../context/AuthContext";
-import Container from "../components/common/Container";
+import Button from "../../components/common/Button";
+import { useAuth } from "../../context/AuthContext";
+import Container from "../../components/common/Container";
 
-type Props = {};
-
-const Home = (props: Props) => {
+const Home = () => {
   const { logout, appUser } = useAuth();
 
   async function handleLogout(): Promise<void> {
