@@ -1,8 +1,11 @@
 import React, { useContext, useState, useEffect, ReactNode } from "react";
 import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
+import * as SplashScreen from "expo-splash-screen";
 import { usersCollection } from "../services/firestore/userService";
 import { User } from "../models/User";
-import { error } from "../../colors";
+
+// Keep the splash screen visible while we initialize the app
+SplashScreen.preventAutoHideAsync();
 
 type AuthContextProps = {
   children: ReactNode;
@@ -39,7 +42,8 @@ export function useAuth() {
  * @returns A component that wraps the app with an authentication context.
  */
 export function AuthProvider({ children }: AuthContextProps) {
-  const [initializing, setInitializing] = useState<boolean>(true);
+  const [initializingAuthUser, setInitializingAuthUser] = useState<boolean>(true);
+  const [initializingAppUser, setInitializingAppUser] = useState<boolean>(true);
   const [authUser, setAuthUser] = useState<FirebaseAuthTypes.User | null>(null);
   const [appUser, setAppUser] = useState<User | undefined>(undefined);
 
@@ -106,7 +110,7 @@ export function AuthProvider({ children }: AuthContextProps) {
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged((user) => {
       setAuthUser(user);
-      if (initializing) setInitializing(false);
+      if (initializingAuthUser) setInitializingAuthUser(false);
     });
 
     return subscriber; // unsubscribe on unmount
@@ -122,10 +126,12 @@ export function AuthProvider({ children }: AuthContextProps) {
       (documentSnapshot) => {
         if (documentSnapshot.exists) {
           setAppUser(documentSnapshot.data());
+          if (initializingAppUser) setInitializingAppUser(false);
         }
       },
       (error) => {
         if (appUser) setAppUser(undefined);
+        if (initializingAppUser) setInitializingAppUser(false);
         console.log("[User Snapshop] - No logged in user to start listening to.");
       }
     );
@@ -143,5 +149,9 @@ export function AuthProvider({ children }: AuthContextProps) {
     resetPassword,
   };
 
-  return <AuthContext.Provider value={values}>{!initializing && children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={values}>
+      {!initializingAuthUser && !initializingAppUser && children}
+    </AuthContext.Provider>
+  );
 }

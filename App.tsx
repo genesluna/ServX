@@ -1,5 +1,6 @@
 import "react-native-gesture-handler";
 import { AuthProvider } from "./src/context/AuthContext";
+import * as SplashScreen from "expo-splash-screen";
 import { Routes } from "./src/routes";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native";
@@ -10,9 +11,13 @@ export default function App() {
 
   setColorScheme("dark");
 
+  async function onLayoutRootView() {
+    await SplashScreen.hideAsync();
+  }
+
   return (
     <AuthProvider>
-      <SafeAreaView className="flex-1">
+      <SafeAreaView onLayout={onLayoutRootView} className="flex-1">
         <Routes />
         <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
       </SafeAreaView>
