@@ -1,11 +1,14 @@
 import React, { useContext, useState, useEffect, ReactNode } from "react";
 import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
-import * as SplashScreen from "expo-splash-screen";
+//import * as SplashScreen from "expo-splash-screen";
 import { usersCollection } from "../services/firestore/userService";
 import { User } from "../models/User";
+import SplashScreen from "../screens/SplashScreen";
+import { tenantsCollection } from "../services/firestore/tenantService";
+import { Tenant } from "../models/Tenant";
 
 // Keep the splash screen visible while we initialize the app
-SplashScreen.preventAutoHideAsync();
+// SplashScreen.preventAutoHideAsync();
 
 type AuthContextProps = {
   children: ReactNode;
@@ -14,6 +17,7 @@ type AuthContextProps = {
 type AuthContextType = {
   authUser: FirebaseAuthTypes.User | null;
   appUser: User | undefined;
+  tenant: Tenant | undefined;
   register: (email: string, password: string) => Promise<FirebaseAuthTypes.UserCredential>;
   login: (email: string, password: string) => Promise<FirebaseAuthTypes.UserCredential>;
   logout: () => Promise<void>;
@@ -44,8 +48,10 @@ export function useAuth() {
 export function AuthProvider({ children }: AuthContextProps) {
   const [initializingAuthUser, setInitializingAuthUser] = useState<boolean>(true);
   const [initializingAppUser, setInitializingAppUser] = useState<boolean>(true);
+  const [initializingTenant, setInitializingTenant] = useState<boolean>(true);
   const [authUser, setAuthUser] = useState<FirebaseAuthTypes.User | null>(null);
   const [appUser, setAppUser] = useState<User | undefined>(undefined);
+  const [tenant, setTenant] = useState<Tenant | undefined>(undefined);
 
   /**
    * Registers a new user with Firebase Authentication.
@@ -88,6 +94,7 @@ export function AuthProvider({ children }: AuthContextProps) {
    */
   function logout(): Promise<void> {
     if (appUser) setAppUser(undefined);
+    if (tenant) setTenant(undefined);
     return auth().signOut();
   }
 
@@ -137,11 +144,35 @@ export function AuthProvider({ children }: AuthContextProps) {
     );
 
     return subscriber; // unsubscribe on unmount
-  }, [authUser]);
+  }, [authUser?.uid]);
+
+  /**
+   * Sets up an observer to listen for changes in the tenants's document state.
+   *
+   * @returns A function to unsubscribe the observer when the component unmounts.
+   */
+  useEffect(() => {
+    const subscriber = tenantsCollection.doc(appUser?.activeTenant?.tenantId ?? undefined).onSnapshot(
+      (documentSnapshot) => {
+        if (documentSnapshot.exists) {
+          setTenant(documentSnapshot.data());
+          if (initializingTenant) setInitializingTenant(false);
+        }
+      },
+      (error) => {
+        if (tenant) setTenant(undefined);
+        if (initializingTenant) setInitializingTenant(false);
+        console.log("[Tenant Snapshop] - No logged in user to start listening to its tenant.");
+      }
+    );
+
+    return subscriber; // unsubscribe on unmount
+  }, [appUser?.activeTenant?.tenantId]);
 
   const values: AuthContextType = {
     authUser,
     appUser,
+    tenant,
     login,
     register,
     logout,
@@ -151,7 +182,7 @@ export function AuthProvider({ children }: AuthContextProps) {
 
   return (
     <AuthContext.Provider value={values}>
-      {!initializingAuthUser && !initializingAppUser && children}
+      {!initializingAuthUser && !initializingAppUser && !initializingTenant ? children : <SplashScreen />}
     </AuthContext.Provider>
   );
 }
