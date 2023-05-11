@@ -7,7 +7,6 @@ import { SafeAreaView, useColorScheme } from "react-native";
 
 export default function App() {
   let colorScheme = useColorScheme();
-  console.log(colorScheme);
 
   async function onLayoutRootView() {
     await SplashScreen.hideAsync();
