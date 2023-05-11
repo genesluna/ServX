@@ -16,7 +16,7 @@ import Text from "../common/Text";
 type StyledDrawerProps = DrawerContentComponentProps & {};
 
 const StyledDrawer = (props: StyledDrawerProps) => {
-  const { logout, appUser } = useAuth();
+  const { logout, tenant } = useAuth();
 
   async function handleLogout(): Promise<void> {
     try {
@@ -37,7 +37,7 @@ const StyledDrawer = (props: StyledDrawerProps) => {
             <Image source={ManuLogo} resizeMode="contain" className="w-10 h-10 resize" />
           </View>
           <Text size="base" className="mt-2 text-content-400">
-            {appUser?.activeTenant?.tenantName}
+            {tenant?.name}
           </Text>
         </View>
       </ImageBackground>
@@ -47,7 +47,7 @@ const StyledDrawer = (props: StyledDrawerProps) => {
         <View className="mx-4 my-6 border-t border-primary" />
         <DrawerItem
           label={"Avalie-nos"}
-          onPress={handleLogout}
+          onPress={() => {}}
           activeBackgroundColor={colors.primary.faded}
           activeTintColor={colors.primary.DEFAULT}
           inactiveTintColor={colors.primary.DEFAULT}
@@ -55,7 +55,7 @@ const StyledDrawer = (props: StyledDrawerProps) => {
         />
         <DrawerItem
           label={"Compartilhe"}
-          onPress={handleLogout}
+          onPress={() => {}}
           activeBackgroundColor={colors.primary.faded}
           activeTintColor={colors.primary.DEFAULT}
           inactiveTintColor={colors.primary.DEFAULT}
