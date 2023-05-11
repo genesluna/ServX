@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useColorScheme } from "react-native";
 
-import { useColorScheme } from "nativewind";
 import colors from "../../colors";
 import Login from "../screens/Auth/Login";
 import Register from "../screens/Auth/Register";
@@ -11,7 +11,7 @@ import TenantRegister from "../screens/Auth/TenantRegister";
 const { Screen, Navigator } = createNativeStackNavigator();
 
 export function AuthRoutes() {
-  const { colorScheme } = useColorScheme();
+  let colorScheme = useColorScheme();
 
   return (
     <Navigator
