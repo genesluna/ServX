@@ -1,24 +1,13 @@
-import { Text } from "react-native";
-import React from "react";
-import Button from "../../components/common/Button";
 import { useAuth } from "../../context/AuthContext";
 import Container from "../../components/common/Container";
+import Text from "../../components/common/Text";
 
 const Home = () => {
-  const { logout, appUser } = useAuth();
-
-  async function handleLogout(): Promise<void> {
-    try {
-      return await logout();
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  const { appUser } = useAuth();
 
   return (
     <Container>
-      <Text className="text-2xl my-6">{`Seja bem-vindo, ${appUser?.name}`}</Text>
-      <Button icon="log-out" label="logout" onPress={handleLogout} />
+      <Text size="h2" className="text-center w-44">{`Seja bem-vindo, ${appUser?.name}`}</Text>
     </Container>
   );
 };
