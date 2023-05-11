@@ -1,7 +1,7 @@
 import React, { ComponentProps, forwardRef, useState } from "react";
-import { TextInput, View, TextInputProps, ViewProps, TouchableOpacity } from "react-native";
+import { TextInput, View, TextInputProps, ViewProps, TouchableOpacity, useColorScheme } from "react-native";
 import { Feather as Icon } from "@expo/vector-icons";
-import { styled, useColorScheme } from "nativewind";
+import { styled } from "nativewind";
 
 import colors from "../../../colors";
 import Text from "./Text";
@@ -35,7 +35,6 @@ const Input = forwardRef<TextInput, InputProps>(
     ref
   ): JSX.Element => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
-    const { colorScheme } = useColorScheme();
     const validationIconColor = !touched ? colors.content[300] : error ? colors.error.focus : colors.primary.DEFAULT;
     const validationIconColorDark = !touched ? colors.base[300] : error ? colors.error.DEFAULT : colors.primary.DEFAULT;
     const validationBorderColor = !touched
@@ -44,6 +43,7 @@ const Input = forwardRef<TextInput, InputProps>(
       ? "border-error-focus dark:border-error"
       : "border-transparent";
     const readOnlyColor = readOnly ? "bg-base-150 dark:bg-base-700" : "bg-content-100 dark:bg-base-400";
+    let colorScheme = useColorScheme();
 
     return (
       <View className="flex items-start mb-2" style={inputStyle}>

@@ -3,13 +3,11 @@ import { AuthProvider } from "./src/context/AuthContext";
 import * as SplashScreen from "expo-splash-screen";
 import { Routes } from "./src/routes";
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaView } from "react-native";
-import { useColorScheme } from "nativewind";
+import { SafeAreaView, useColorScheme } from "react-native";
 
 export default function App() {
-  const { colorScheme, setColorScheme } = useColorScheme();
-
-  setColorScheme("dark");
+  let colorScheme = useColorScheme();
+  console.log(colorScheme);
 
   async function onLayoutRootView() {
     await SplashScreen.hideAsync();

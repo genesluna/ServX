@@ -1,9 +1,8 @@
 import React, { ComponentProps } from "react";
-import { ActivityIndicator, Text, TouchableOpacity, TouchableOpacityProps, View } from "react-native";
+import { ActivityIndicator, Text, TouchableOpacity, TouchableOpacityProps, View, useColorScheme } from "react-native";
 import { Feather as Icon } from "@expo/vector-icons";
 
 import colors from "../../../colors";
-import { useColorScheme } from "nativewind";
 
 type ButtonProps = TouchableOpacityProps & {
   label?: string;
@@ -35,7 +34,7 @@ const Button = ({
   outline = false,
   ...props
 }: ButtonProps): JSX.Element => {
-  const { colorScheme } = useColorScheme();
+  let colorScheme = useColorScheme();
   let color: string =
     type === "primary"
       ? "bg-primary dark:bg-primary-focus"
