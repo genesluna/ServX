@@ -6,6 +6,12 @@ export declare global {
       emailValidation: undefined;
       forgotPassword: undefined;
       tenantRegister: undefined;
+      workOrders: undefined;
+      customers: undefined;
+      products: undefined;
+      services: undefined;
+      cashier: undefined;
+      settings: undefined;
       home: undefined;
     }
   }
