@@ -1,6 +1,5 @@
 import { View, ViewProps } from "react-native";
 import { Feather as Icon } from "@expo/vector-icons";
-import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
