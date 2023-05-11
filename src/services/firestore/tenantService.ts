@@ -1,7 +1,9 @@
 import firestore, { FirebaseFirestoreTypes } from "@react-native-firebase/firestore";
 import { Memberships, Tenant } from "../../models/Tenant";
 
-const tenantsCollection = firestore().collection("tenants") as FirebaseFirestoreTypes.CollectionReference<Tenant>;
+export const tenantsCollection = firestore().collection(
+  "tenants"
+) as FirebaseFirestoreTypes.CollectionReference<Tenant>;
 
 function membershipCollection(tenantId: string): FirebaseFirestoreTypes.CollectionReference<Memberships> {
   return firestore().collection(
