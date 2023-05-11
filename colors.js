@@ -4,6 +4,7 @@ module.exports = {
   primary: {
     DEFAULT: "#f28c18",
     focus: "#c9710d",
+    faded: "#f28c182a",
   },
 
   secondary: {
