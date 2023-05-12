@@ -13,23 +13,23 @@ const TenantRegister = () => {
   async function handleTenantRegister(data: TenantRegisterFormValues) {
     try {
       const result = await createTenant({
-        name: data.name,
-        email: data.email,
-        phoneNumber: data.phone,
+        name: data.name.trim(),
+        email: data.email.trim(),
+        phoneNumber: data.phone.trim(),
         createdBy: authUser?.uid,
       });
       await createUser(
         {
           name: authUser?.displayName,
           email: authUser?.email!,
-          activeTenant: { tenantId: result.id, tenantName: data.name },
+          activeTenant: { tenantId: result.id, tenantName: data.name.trim() },
         },
         authUser?.uid!
       );
       return await createMembership(
         {
           tenantId: result.id,
-          tenantName: data.name,
+          tenantName: data.name.trim(),
           name: authUser?.displayName,
           active: true,
           role: "admin",

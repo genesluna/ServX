@@ -13,8 +13,8 @@ const Register = () => {
 
   async function handleRegister({ name, email, password }: RegisterFormValues) {
     try {
-      let result = await register(email, password);
-      await result.user.updateProfile({ displayName: name });
+      let result = await register(email.trim(), password.trim());
+      await result.user.updateProfile({ displayName: name.trim() });
       await result.user.sendEmailVerification();
       await reloadAuthUser();
       ToastAndroid.show("Usuário cadastrado com sucesso.", ToastAndroid.LONG);

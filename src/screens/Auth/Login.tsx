@@ -32,7 +32,7 @@ const Login = () => {
 
   async function handleLogin({ email, password }: LoginFormValues) {
     try {
-      await login(email, password);
+      await login(email.trim(), password.trim());
       // TODO: handle unfinished registration during new login
     } catch (error) {
       ToastAndroid.showWithGravity("Email ou senha incorretos", ToastAndroid.LONG, ToastAndroid.TOP);
