@@ -16,7 +16,7 @@ const Header = ({ ...props }: HeaderProps): JSX.Element => {
 
   return (
     <View {...props}>
-      <Image source={colorScheme === "light" ? Logo : LogoDark} />
+      <Image className="h-[27vh] w-[27vh]" source={colorScheme === "light" ? Logo : LogoDark} resizeMethod="resize" />
     </View>
   );
 };
