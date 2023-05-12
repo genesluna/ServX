@@ -45,6 +45,12 @@ const TenantRegisterForm = ({ onSubmit, ...props }: TenantRegisterFormProps) => 
       <View className="justify-center p-8 my-10 rounded-full bg-base-400 dark:bg-base-600">
         <Icon name="add-business" size={50} color={colors.content[100]} />
       </View>
+
+      <Text size="sm" className="w-full mb-8 text-justify">
+        Esse é um cadastro básico da empresa. Você poderá adicionar mais informações, como CNPJ, endereço, logotipo,
+        etc., no menu de configurações do aplicativo.
+      </Text>
+
       <Input
         icon="briefcase"
         autoCapitalize="words"
@@ -91,13 +97,10 @@ const TenantRegisterForm = ({ onSubmit, ...props }: TenantRegisterFormProps) => 
         value={values.email}
         onSubmitEditing={() => handleSubmit()}
       />
-      <Text size="sm" className="w-full mt-6 mb-8 text-justify">
-        Esse é um cadastro básico da empresa. Você poderar adicionar mais informações, como CNPJ, endereço, logotipo,
-        etc., no menu de configuração do aplicativo.
-      </Text>
+
       <Button
         icon="file-text"
-        className="w-full"
+        className="w-full my-6"
         label="registrar empresa"
         onPress={() => handleSubmit()}
         disabled={isSubmitting}
