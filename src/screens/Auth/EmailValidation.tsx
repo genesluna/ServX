@@ -1,5 +1,5 @@
 import { View, ToastAndroid } from "react-native";
-import React, { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Feather as Icon } from "@expo/vector-icons";
 
 import colors from "../../../colors";
@@ -12,8 +12,24 @@ import Text from "../../components/common/Text";
 const EmailValidation = () => {
   const [isLoadingResend, setIsLoadingResend] = useState<boolean>(false);
   const [isLoadingVerify, setIsLoadingVerify] = useState<boolean>(false);
-  const { authUser, reloadAuthUser } = useAuth();
+  const [time, setTime] = useState<number>(60);
+  const { authUser, reloadAuthUser, isEmailVerified } = useAuth();
+  const timerRef = useRef<number>(time);
   const navigation = useNavigation();
+
+  useEffect(() => {
+    const timerId = setInterval(() => {
+      timerRef.current -= 1;
+      if (timerRef.current < 0) {
+        clearInterval(timerId);
+      } else {
+        setTime(timerRef.current);
+      }
+    }, 1000);
+    return () => {
+      clearInterval(timerId);
+    };
+  }, []);
 
   async function handleResendEmail() {
     try {
@@ -31,11 +47,10 @@ const EmailValidation = () => {
     try {
       setIsLoadingVerify(true);
       await reloadAuthUser();
-      await new Promise((resolve) => setTimeout(resolve, 1500));
     } catch (error) {
       console.log(error);
     } finally {
-      if (authUser?.emailVerified) {
+      if (isEmailVerified()) {
         ToastAndroid.show("O e-mail foi validado com sucesso.", ToastAndroid.LONG);
         navigation.reset({ index: 0, routes: [{ name: "tenantRegister" }] });
       } else {
@@ -55,10 +70,13 @@ const EmailValidation = () => {
       </View>
 
       <View className="flex-1 w-full">
-        <Text size="base" className="text-justify">
-          Antes de cadastrar a sua empresa, acesse o seu e-mail e clique no link para confirmação do email informado.
+        <Text size="sm" className="text-justify">
+          Faça a verificação clicando no link que foi enviado para:{" "}
+          <Text size="sm" className="font-bold">
+            {authUser?.email}
+          </Text>
         </Text>
-        <Text size="base" className="my-6 text-justify">
+        <Text size="sm" className="my-6 text-justify">
           Depois clique no botão abaixo:
         </Text>
         <Button
@@ -67,15 +85,17 @@ const EmailValidation = () => {
           label="e-mail verificado"
           onPress={handeVerifyEmail}
           isLoading={isLoadingVerify}
+          disabled={isLoadingVerify}
         />
-        <Text size="base" className="my-6 text-justify">
-          O e-mail pode estar na caixa de Span. Caso não o encontre, você pode solicitar o reenvio clicando no botão
-          abaixo:
+        <Text size="sm" className="my-6 text-justify">
+          Não recebeu o e-mail? Já olhou na caixa de Span? Você poderá solicitar o reenvio clicando no botão abaixo:
         </Text>
         <Button
           type="secondary"
           icon="mail"
-          label="renviar e-mail"
+          className={time > 0 ? "bg-base-350 dark:bg-base-350" : ""}
+          label={time > 0 ? `aguarde ${time} segundos` : "renviar e-mail"}
+          disabled={time > 0 || isLoadingResend}
           onPress={handleResendEmail}
           isLoading={isLoadingResend}
         />
