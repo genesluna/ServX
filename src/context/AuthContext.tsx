@@ -23,6 +23,7 @@ type AuthContextType = {
   logout: () => Promise<void>;
   reloadAuthUser: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
+  isEmailVerified(): boolean | undefined;
 };
 
 /**
@@ -85,6 +86,10 @@ export function AuthProvider({ children }: AuthContextProps) {
   async function reloadAuthUser(): Promise<void> {
     await auth().currentUser?.reload();
     setAuthUser(auth().currentUser);
+  }
+
+  function isEmailVerified(): boolean | undefined {
+    return auth().currentUser?.emailVerified;
   }
 
   /**
@@ -178,6 +183,7 @@ export function AuthProvider({ children }: AuthContextProps) {
     logout,
     reloadAuthUser,
     resetPassword,
+    isEmailVerified,
   };
 
   return (
