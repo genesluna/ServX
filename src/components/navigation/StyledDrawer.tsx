@@ -9,7 +9,7 @@ import {
 } from "@react-navigation/drawer";
 
 import DrawerHeadingBG from "../../../assets/drawer-heading-bg.jpg";
-import DrawerHeadingBGDark from "../../../assets/drawer-heading-bg_dark.jpg";
+import DrawerHeadingBGDark from "../../../assets/drawer-heading-bg-dark.jpg";
 import colors from "../../../colors";
 import Text from "../common/Text";
 
