@@ -43,7 +43,7 @@ const Button = ({
       : type === "accent"
       ? "bg-accent dark:bg-accent"
       : type === "danger"
-      ? "bg-danger dark:bg-danger-focus"
+      ? "bg-danger-focus dark:bg-danger-focus"
       : "bg-neutral";
   let iconColor: string = colorScheme === "dark" ? colors.content[150] : colors.content[100];
   let labelColor: string = "text-content-100 dark:text-content-150";
