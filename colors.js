@@ -10,6 +10,7 @@ module.exports = {
   secondary: {
     DEFAULT: "#187ef2",
     focus: "#0d65c9",
+    faded: "#187ef22a",
   },
 
   accent: {
