@@ -37,11 +37,11 @@ const Button = ({
   let colorScheme = useColorScheme();
   let color: string =
     type === "primary"
-      ? "bg-primary dark:bg-primary-focus"
+      ? "bg-primary dark:bg-primary"
       : type === "secondary"
-      ? "bg-secondary dark:bg-secondary-focus"
+      ? "bg-secondary dark:bg-secondary"
       : type === "accent"
-      ? "bg-accent dark:bg-accent-focus"
+      ? "bg-accent dark:bg-accent"
       : type === "danger"
       ? "bg-danger dark:bg-danger-focus"
       : "bg-neutral";
@@ -51,21 +51,21 @@ const Button = ({
   if (outline) {
     color =
       type === "primary"
-        ? "border border-primary dark:border-primary-focus"
+        ? "border border-primary dark:border-primary"
         : type === "secondary"
-        ? "border border-secondary dark:border-secondary-focus"
+        ? "border border-secondary dark:border-secondary"
         : type === "accent"
-        ? "border border-accent dark:border-accent-focus"
+        ? "border border-accent dark:border-accent"
         : type === "danger"
-        ? "border border-danger dark:border-danger-focus"
+        ? "border border-danger-focus dark:border-danger-focus"
         : "border border-neutral";
     labelColor =
       type === "primary"
-        ? "text-primary dark:text-primary-focus"
+        ? "text-primary dark:text-primary"
         : type === "secondary"
-        ? "text-secondary dark:text-secondary-focus"
+        ? "text-secondary dark:text-secondary"
         : type === "accent"
-        ? "text-accent dark:text-accent-focus"
+        ? "text-accent dark:text-accent"
         : type === "danger"
         ? "text-danger dark:text-danger-focus"
         : "text-neutral";

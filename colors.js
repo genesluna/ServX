@@ -19,7 +19,7 @@ module.exports = {
 
   danger: {
     DEFAULT: "#ff6347",
-    focus: "#dc2626",
+    focus: "#DB4437",
   },
 
   neutral: {
