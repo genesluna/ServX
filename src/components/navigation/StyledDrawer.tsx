@@ -1,4 +1,4 @@
-import { Feather as Icon, Ionicons } from "@expo/vector-icons";
+import { Feather as Icon } from "@expo/vector-icons";
 import { useAuth } from "../../context/AuthContext";
 import { ImageBackground, View, Image } from "react-native";
 import {
@@ -9,14 +9,13 @@ import {
 } from "@react-navigation/drawer";
 
 import DrawerHeadingBG from "../../../assets/drawer-heading-bg.jpg";
-import ManuLogo from "../../../assets/manu_logo.png";
 import colors from "../../../colors";
 import Text from "../common/Text";
 
 type StyledDrawerProps = DrawerContentComponentProps & {};
 
 const StyledDrawer = (props: StyledDrawerProps) => {
-  const { logout, tenant } = useAuth();
+  const { logout, tenant, appUser } = useAuth();
 
   async function handleLogout(): Promise<void> {
     try {
@@ -29,15 +28,19 @@ const StyledDrawer = (props: StyledDrawerProps) => {
   return (
     <View className="flex-1">
       <ImageBackground source={DrawerHeadingBG} resizeMode="cover">
-        <View className="items-center pt-8 pb-6">
-          {/* <View className="justify-center p-4 rounded-full bg-base-400 dark:bg-base-600">
-            <Ionicons name="md-business-sharp" size={25} color={colors.content[100]} />
-          </View> */}
-          <View className="justify-center p-2 rounded-full bg-base-400 dark:bg-base-600">
-            <Image source={ManuLogo} resizeMode="contain" className="w-10 h-10 resize" />
-          </View>
-          <Text size="base" className="mt-2 text-content-400">
+        <View className="items-center pt-8 pb-4">
+          {!appUser?.photoURL ? (
+            <View className="justify-center p-4 rounded-full bg-base-400 dark:bg-base-600">
+              <Icon name="user" size={24} color={colors.content[100]} />
+            </View>
+          ) : (
+            <Image source={{ uri: appUser.photoURL }} resizeMode="contain" className="w-14 h-14 resize rounded-full" />
+          )}
+          <Text size="base" className="mt-1 text-content-400 font-bold">
             {tenant?.name}
+          </Text>
+          <Text size="sm" className=" text-content-400 font-normal italic tracking-wide">
+            {appUser?.name}
           </Text>
         </View>
       </ImageBackground>
