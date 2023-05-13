@@ -22,6 +22,7 @@ const TenantRegister = () => {
         {
           name: authUser?.displayName,
           email: authUser?.email!,
+          photoURL: authUser?.photoURL ?? "",
           activeTenant: { tenantId: result.id, tenantName: data.name.trim() },
         },
         authUser?.uid!
