@@ -1,14 +1,16 @@
-import React, { useContext, useState, useEffect, ReactNode } from "react";
+import { useContext, useState, useEffect, ReactNode, createContext } from "react";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
-//import * as SplashScreen from "expo-splash-screen";
 import { usersCollection } from "../services/firestore/userService";
 import { User } from "../models/User";
 import SplashScreen from "../screens/SplashScreen";
 import { tenantsCollection } from "../services/firestore/tenantService";
 import { Tenant } from "../models/Tenant";
 
-// Keep the splash screen visible while we initialize the app
-// SplashScreen.preventAutoHideAsync();
+GoogleSignin.configure({
+  webClientId: "188312931095-lo4v2aasonlvi8inacnk86keuf8s59qd.apps.googleusercontent.com",
+  offlineAccess: true,
+});
 
 type AuthContextProps = {
   children: ReactNode;
@@ -20,6 +22,7 @@ type AuthContextType = {
   tenant: Tenant | undefined;
   register: (email: string, password: string) => Promise<FirebaseAuthTypes.UserCredential>;
   login: (email: string, password: string) => Promise<FirebaseAuthTypes.UserCredential>;
+  loginWithGoogle: () => Promise<FirebaseAuthTypes.UserCredential>;
   logout: () => Promise<void>;
   reloadAuthUser: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
@@ -29,7 +32,7 @@ type AuthContextType = {
 /**
  * The authentication context object that is passed down through the component tree.
  */
-const AuthContext = React.createContext<AuthContextType>({} as AuthContextType);
+const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 /**
  * A hook that returns the authentication context.
@@ -79,6 +82,18 @@ export function AuthProvider({ children }: AuthContextProps) {
   }
 
   /**
+   * Logs in a user with Google Authentication.
+   *
+   * @returns A Promise that resolves with the user's credential after successful login.
+   */
+  async function loginWithGoogle(): Promise<FirebaseAuthTypes.UserCredential> {
+    await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+    const { idToken } = await GoogleSignin.signIn();
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    return await auth().signInWithCredential(googleCredential);
+  }
+
+  /**
    * Reloads currently authenticated user.
    *
    * @returns A Promise that resolves after successful reload.
@@ -87,7 +102,11 @@ export function AuthProvider({ children }: AuthContextProps) {
     await auth().currentUser?.reload();
     setAuthUser(auth().currentUser);
   }
-
+  /**
+   * Checks if the currently authenticated user has verified the email.
+   *
+   * @returns A boolean or undefined.
+   */
   function isEmailVerified(): boolean | undefined {
     return auth().currentUser?.emailVerified;
   }
@@ -138,8 +157,8 @@ export function AuthProvider({ children }: AuthContextProps) {
       (documentSnapshot) => {
         if (documentSnapshot.exists) {
           setAppUser(documentSnapshot.data());
-          if (initializingAppUser) setInitializingAppUser(false);
         }
+        if (initializingAppUser) setInitializingAppUser(false);
       },
       (error) => {
         if (appUser) setAppUser(undefined);
@@ -161,8 +180,8 @@ export function AuthProvider({ children }: AuthContextProps) {
       (documentSnapshot) => {
         if (documentSnapshot.exists) {
           setTenant(documentSnapshot.data());
-          if (initializingTenant) setInitializingTenant(false);
         }
+        if (initializingTenant) setInitializingTenant(false);
       },
       (error) => {
         if (tenant) setTenant(undefined);
@@ -179,6 +198,7 @@ export function AuthProvider({ children }: AuthContextProps) {
     appUser,
     tenant,
     login,
+    loginWithGoogle,
     register,
     logout,
     reloadAuthUser,
