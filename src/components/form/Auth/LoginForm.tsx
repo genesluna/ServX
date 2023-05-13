@@ -1,6 +1,7 @@
-import React, { useRef } from "react";
-import { GestureResponderEvent, TextInput, TouchableOpacity, View, ViewProps } from "react-native";
+import { ActivityIndicator, GestureResponderEvent, TextInput, TouchableOpacity, View, ViewProps } from "react-native";
+import { Ionicons as Icon } from "@expo/vector-icons";
 import { useFormik } from "formik";
+import { useRef } from "react";
 import * as Yup from "yup";
 
 import Button from "../../common/Button";
@@ -9,8 +10,10 @@ import Text from "../../common/Text";
 
 type LoginFormProps = ViewProps & {
   onSubmit: (values: LoginFormValues) => Promise<void>;
+  onGoogleSingin: (event: GestureResponderEvent) => Promise<void>;
   onRegister: (event: GestureResponderEvent) => void;
   onForgotPassword: (event: GestureResponderEvent) => void;
+  isGoogleSinginLoading?: boolean;
 };
 
 export type LoginFormValues = {
@@ -22,11 +25,21 @@ export type LoginFormValues = {
  * A form for logging in users.
  *
  * @param onSubmit - The function that will be called when the form is submitted. Should return a promise.
+ * @param onGoogleSingin - The function that will be called when the "google signin" button is pressed. Should return a promise.
  * @param onRegister - The function that will be called when the "register" button is pressed.
+ * @param onForgotPassword - The function that will be called when the "fotgot password" button is pressed.
+ * @param isGoogleSinginLoading - A boolean indicating wheather or not in the google signin proccess.
  *
  * @returns - A component that contains the login form.
  */
-const LoginForm = ({ onSubmit, onRegister, onForgotPassword, ...props }: LoginFormProps): JSX.Element => {
+const LoginForm = ({
+  onSubmit,
+  onGoogleSingin,
+  onRegister,
+  onForgotPassword,
+  isGoogleSinginLoading = false,
+  ...props
+}: LoginFormProps): JSX.Element => {
   const password = useRef<TextInput>(null);
 
   const initialValues: LoginFormValues = { email: "", password: "" };
@@ -87,6 +100,23 @@ const LoginForm = ({ onSubmit, onRegister, onForgotPassword, ...props }: LoginFo
         disabled={isSubmitting}
         isLoading={isSubmitting}
       />
+
+      <TouchableOpacity
+        className="mt-3 flex-row items-center justify-center h-12 px-4 bg-[#DB4437]"
+        activeOpacity={0.7}
+        onPress={onGoogleSingin}
+      >
+        {!isGoogleSinginLoading && (
+          <View className="items-center justify-center h-full">
+            <Icon name="logo-google" size={16} color="white" />
+          </View>
+        )}
+        {isGoogleSinginLoading && <ActivityIndicator className="sh-full" size={16} color="white" />}
+
+        <Text size="base" className="font-bold tracking-widest uppercase pl-2 text-content-100 dark:text-content-150">
+          entrar com o goole
+        </Text>
+      </TouchableOpacity>
 
       <Button icon="file-text" className="mt-3" type="secondary" label="registrar" onPress={onRegister} />
 

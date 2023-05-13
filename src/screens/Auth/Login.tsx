@@ -1,15 +1,16 @@
 import { Keyboard, KeyboardAvoidingView, Platform, ToastAndroid, TouchableWithoutFeedback } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { useEffect, useState } from "react";
 
 import { useAuth } from "../../context/AuthContext";
 import LoginForm, { LoginFormValues } from "../../components/form/Auth/LoginForm";
-import { useNavigation } from "@react-navigation/native";
 import Header from "../../components/form/Auth/Header";
 import Container from "../../components/common/Container";
-import { useEffect } from "react";
 
 const Login = () => {
+  const [isGoogleSinginLoading, setIsGoolgeSigninLoaging] = useState<boolean>(false);
   const navigation = useNavigation();
-  const { login, authUser } = useAuth();
+  const { login, loginWithGoogle, authUser } = useAuth();
 
   useEffect(() => {
     // Handles unfinished registration when the user is still logged in and restarts the app
@@ -40,6 +41,21 @@ const Login = () => {
     }
   }
 
+  async function handleGoogleSignin() {
+    try {
+      setIsGoolgeSigninLoaging(true);
+      const result = await loginWithGoogle();
+      if (result.additionalUserInfo?.isNewUser) {
+        ToastAndroid.show("Usuário cadastrado com sucesso.", ToastAndroid.LONG);
+        navigation.reset({ index: 0, routes: [{ name: "tenantRegister" }] });
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsGoolgeSigninLoaging(false);
+    }
+  }
+
   return (
     <KeyboardAvoidingView className="flex-1" behavior={Platform.OS === "ios" ? "padding" : "height"}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -49,6 +65,8 @@ const Login = () => {
             onSubmit={handleLogin}
             onRegister={openRegisterScreen}
             onForgotPassword={openForgotPasswordScreen}
+            onGoogleSingin={handleGoogleSignin}
+            isGoogleSinginLoading={isGoogleSinginLoading}
           />
         </Container>
       </TouchableWithoutFeedback>
