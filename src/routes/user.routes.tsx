@@ -26,9 +26,9 @@ export function UserRoutes() {
         headerTintColor: colorScheme === "dark" ? colors.content[150] : colors.content[400],
         headerStyle: { backgroundColor: colorScheme === "dark" ? colors.base[400] : colors.base[50] },
         drawerStyle: { backgroundColor: colorScheme === "dark" ? colors.base[400] : colors.base[50] },
-        drawerActiveBackgroundColor: colors.primary.faded,
-        drawerActiveTintColor: colors.primary.DEFAULT,
-        drawerInactiveTintColor: colors.primary.DEFAULT,
+        drawerActiveBackgroundColor: colorScheme === "dark" ? colors.primary.faded : colors.secondary.faded,
+        drawerActiveTintColor: colorScheme === "dark" ? colors.primary.DEFAULT : colors.secondary.DEFAULT,
+        drawerInactiveTintColor: colorScheme === "dark" ? colors.primary.DEFAULT : colors.secondary.DEFAULT,
       }}
     >
       <Screen
