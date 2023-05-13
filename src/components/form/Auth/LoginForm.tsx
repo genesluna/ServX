@@ -102,7 +102,7 @@ const LoginForm = ({
       />
 
       <TouchableOpacity
-        className="mt-3 flex-row items-center justify-center h-12 px-4 bg-[#DB4437]"
+        className="flex-row items-center justify-center h-12 px-4 mt-3 bg-danger-focus"
         activeOpacity={0.7}
         onPress={onGoogleSingin}
       >
@@ -113,7 +113,7 @@ const LoginForm = ({
         )}
         {isGoogleSinginLoading && <ActivityIndicator className="sh-full" size={16} color="white" />}
 
-        <Text size="base" className="font-bold tracking-widest uppercase pl-2 text-content-100 dark:text-content-150">
+        <Text size="base" className="pl-2 font-bold tracking-widest uppercase text-content-100 dark:text-content-150">
           entrar com o goole
         </Text>
       </TouchableOpacity>
