@@ -2,7 +2,7 @@
 
 # ServX - Express Service
 
-ServX is a multi-tenant mobile app for managing service provider companies.
+ServX is a multi-tenant mobile app for managing small service provider companies.
 
 This app was developed using React Native with Expo and the dev client workflow. We used Firebase as our BaaS.
 
