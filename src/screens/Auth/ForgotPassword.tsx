@@ -9,7 +9,7 @@ const ForgotPassword = () => {
   const navigation = useNavigation();
   const { resetPassword } = useAuth();
 
-  async function handleLogin({ email }: ForgotPaswordFormValues): Promise<void> {
+  async function handleResetPassword({ email }: ForgotPaswordFormValues): Promise<void> {
     try {
       await resetPassword(email);
       ToastAndroid.show("E-mail enviado com sucesso.", ToastAndroid.LONG);
@@ -24,7 +24,7 @@ const ForgotPassword = () => {
     <KeyboardAvoidingView className="flex-1" behavior={Platform.OS === "ios" ? "padding" : "height"}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Container>
-          <ForgotPasswordForm onSubmit={handleLogin} />
+          <ForgotPasswordForm onSubmit={handleResetPassword} />
         </Container>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
