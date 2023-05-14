@@ -1,17 +1,18 @@
-![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Expo](https://img.shields.io/badge/expo-1C1E24?style=for-the-badge&logo=expo&logoColor=#D04A37) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Expo](https://img.shields.io/badge/expo-1C1E24?style=for-the-badge&logo=expo&logoColor=#D04A37) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) ![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase)
 
 # ServX
 
-ServX is a multi-tenant mobile app for managing service provider companies. With ServX, you can manage services and products, create work orders, take photos of equipments to be repaired, generate PDFs of work orders, track cash flow, and generate management reports.
+ServX is a multi-tenant mobile app for managing service provider companies.
 
-This app was developed using React Native with Expo and the dev client workflow.
+This app was developed using React Native with Expo and the dev client workflow. We used Firebase as our BaaS.
 
 ## Features
 
-- Service and product management
-- Work order creation
+- Services and products management
+- Work orders creation
 - Capture photos of equipments to be repaired
-- Generate PDFs of service orders
+- Generate PDFs of work orders
+- Send work orders and quotes via WhatsApp
 - Cash flow tracking
 - Generate management reports
 
