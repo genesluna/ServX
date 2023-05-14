@@ -6,6 +6,14 @@ type Props = TextProps & {
   children: ReactNode;
 };
 
+/**
+ * A custom `Text` component that extends the `TextProps` type from React Native.
+ *
+ * @param size - The optional size of the text.
+ * @param  children - The content to render inside the `Text` component.
+ *
+ * @returns A component with the specified size and content.
+ */
 const Text = ({ size, children, ...props }: Props) => {
   const textSize =
     size === "xs"
