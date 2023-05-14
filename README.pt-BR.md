@@ -2,7 +2,7 @@
 
 # ServX - Serviço Expresso
 
-ServX é um aplicativo móvel multi-inquilino para gerenciar empresas prestadoras de serviços.
+ServX é um aplicativo móvel multi-inquilino para gerenciar pequenas empresas prestadoras de serviços.
 
 Este aplicativo foi desenvolvido usando React Native com Expo e dev client workflow. Usamos o Firebase como nosso BaaS.
 
