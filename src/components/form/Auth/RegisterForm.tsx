@@ -1,11 +1,10 @@
 import React, { useRef } from "react";
-import { View, ViewProps } from "react-native";
+import { TextInput, View, ViewProps } from "react-native";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import Input from "../../common/Input";
 import Button from "../../common/Button";
-import { TextInput } from "react-native-gesture-handler";
 
 type RegisterFormProps = ViewProps & {
   onSubmit: (values: RegisterFormValues) => Promise<void>;
